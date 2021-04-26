@@ -60,11 +60,12 @@ func TestGenerate(t *testing.T) {
 			}
 			inputResource := schema.Resource{Value: c.Full}
 			scm := genericVersionedSchema{actual: scmInstance.Value()}
-			out, err := scm.TrimDefaults(inputResource)
+			out, err := scm.ApplyDefaults(inputResource)
 			if err != nil {
 				t.Fatal(err)
 			}
 			b := []byte(out.Value.(string))
+
 			if s := cmp.Diff(string(b), c.Trimed); s != "" {
 				t.Fatal(s)
 			}
